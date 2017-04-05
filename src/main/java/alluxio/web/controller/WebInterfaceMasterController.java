@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class WebInterfaceMasterController {
-/*  @RequestMapping("*//*")
+  @RequestMapping("/*")
   public String root() {
     return "general/general";
-  }*/
+  }
   @RequestMapping("/home")
   public String home() {
-    return "general/general";
+    return root();
   }
 
   @RequestMapping("/browse")
