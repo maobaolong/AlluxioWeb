@@ -1,0 +1,33 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </a>
+    <a href="http://alluxio.org/" target="_blank" class="brand" ><img style="height:25px;margin-top:-5px;" src="img/logo.png" alt="Alluxio Logo"/></a>
+    <div class="nav-collapse collapse">
+      <ul class="nav nav-pills">
+        <li id="home-li"><a href="./home">Overview</a></li>
+        #if(!$useWorkerHeader)
+          <li id="browse-li"><a href="./browse">Browse</a></li>
+          <li id="configuration-li"><a href="./configuration">Configuration</a></li>
+          <li id="workers-li"><a href="./workers">Workers</a></li>
+          <li id="memory-li"><a href="./memory">In-Memory Data</a></li>
+        #else
+          <li id="blockInfo-li"><a href="./blockInfo">BlockInfo</a></li>
+        #end
+        <li id="browseLogs-li"><a href="./browseLogs">Logs</a></li>
+        <li id="metricsui-li"><a href="./metricsui">Metrics</a></li>
+        <li id="autorefresh-li"><a href="javascript:toggleAutoRefresh();" id="autorefresh-link">Enable Auto-Refresh</a></li>
+        #if($useWorkerHeader)
+          <li id="returnmaster-li"><a href="http://$masterHost:$masterPort">Return to Master</a></li>
+        #end
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+  var url = window.location.pathname;
+  $("#"+url.substring(1)+"-li").addClass("active");
+</script>

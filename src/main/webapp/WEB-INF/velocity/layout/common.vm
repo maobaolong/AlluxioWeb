@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>AlluxioWeb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="css/custom.min.css" rel="stylesheet">
+  <link href="img/favicon.ico" rel="shortcut icon">
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet"><link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="css/custom.min.css" rel="stylesheet">
+  <link href="img/favicon.ico" rel="shortcut icon">
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+  <title>Alluxio</title>
 </head>
 <body>
-<div>
-    $screen_content
+<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/cookies.min.js" type="text/javascript"></script>
+<div class="container-fluid">
+  #parse("velocity/layout/header.vm")
+  <div>
+        $screen_content
+  </div>
+  #include("velocity/layout/footer.vm")
+
 </div>
 </body>
 </html>
