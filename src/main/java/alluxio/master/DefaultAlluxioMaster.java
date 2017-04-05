@@ -95,7 +95,7 @@ public class DefaultAlluxioMaster implements AlluxioMasterService {
 
   protected void startServingWebServer() {
     mWebServer = new MasterWebServer("Alluxio Master Web service",
-        new InetSocketAddress("localhost", 49999), this);
+        new InetSocketAddress("0.0.0.0", 49999), this);
     // start web ui
     mWebServer.start();
   }
