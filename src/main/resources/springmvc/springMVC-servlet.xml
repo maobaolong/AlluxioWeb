@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="alluxio.web"/>
+    
+    <mvc:view-controller path="/" view-name="home" />
+
+    <!--velocity config-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="prefix" value="pages/"/>
+        <property name="suffix" value=".vm"/>
+        <property name="cache" value="true"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <!--Date function name-->
+        <property name="dateToolAttribute" value="dateTool"/>
+        <!--Number tool function name-->
+        <property name="numberToolAttribute" value="numberTool"/>
+        <!--support spring macro-->
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <!--support request attributes-->
+        <property name="exposeRequestAttributes" value="true"/>
+        <!--request attribute name-->
+        <property name="requestContextAttribute" value="rc"/>
+
+        <!--<property name="exposeSessionAttributes" value="true" />-->
+        <!--layout file-->
+        <property name="layoutUrl" value="velocity/layout/common.vm"/>
+
+    </bean>
+    <!-- config velocity engine -->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--静态资源不拦截-->
+    <mvc:resources mapping="/imgs/**" location="/imgs/" />
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html; charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html; charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>

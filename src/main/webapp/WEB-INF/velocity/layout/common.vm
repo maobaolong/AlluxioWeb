@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AlluxioWeb</title>
+</head>
+<body>
+<div>
+    $screen_content
+</div>
+</body>
+</html>
