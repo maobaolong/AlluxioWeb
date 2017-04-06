@@ -1,1 +1,168 @@
-<h1>Welcome to general page</h1>
+<div class="row-fluid">
+  <div class="accordion span6" id="accordion1">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#data1">
+          <h4>Alluxio Summary</h4>
+        </a>
+      </div>
+      <div id="data1" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <table class="table">
+            <tbody>
+            <tr>
+              <th>Master Address:</th>
+              <th>$!masterNodeAddress</th>
+            </tr>
+            <tr>
+              <th>Started:</th>
+              <!-- <th>${startTime}</th> -->
+              <th>$!startTime</th>
+            </tr>
+            <tr>
+              <th>Uptime:</th>
+              <!-- <th>${uptime}</th> -->
+              <th>$!uptime</th>
+            </tr>
+            <tr>
+              <th>Version:</th>
+              <!-- <th>${version}</th> -->
+              <th>$!version</th>
+            </tr>
+            <tr>
+              <th>Running Workers:</th>
+              <!-- <th>${liveWorkerNodes}</th> -->
+              <th>$!liveWorkerNodes</th>
+            </tr>
+            <tr>
+              <th>Startup Consistency Check:</th>
+              <th>$!consistencyCheckStatus</th>
+            </tr>
+            #if ($inconsistentPaths != "0")
+            <tr>
+              <th><font color="red">Inconsistent Files on Startup (run fs checkConsistency for details):</font></th>
+              <th><font color="red">$!inconsistentPaths</font></th>
+            </tr>
+            #end
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion span6" id="accordion2">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#data2">
+          <h4>Cluster Usage Summary</h4>
+        </a>
+      </div>
+      <div id="data2" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <table class="table">
+            <tbody>
+            <tr>
+              <th>Workers Capacity:</th>
+              <!-- <th>${capacity}</th> -->
+              <th>$!capacity</th>
+            </tr>
+            <tr>
+              <th>Workers Free / Used:</th>
+              <!-- <th>${usedCapacity}</th> -->
+              <th>$!freeCapacity / $!usedCapacity</th>
+            </tr>
+            <tr>
+              <th>UnderFS Capacity:</th>
+              <!-- <th>${capacity}</th> -->
+              <th>$!diskCapacity</th>
+            </tr>
+            <tr>
+              <th>UnderFS Free / Used:</th>
+              <!-- <th>${freeCapacity}</th> -->
+              <th>$!diskFreeCapacity / $!diskUsedCapacity</th>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  show inconsistent path  -->
+#if ($inconsistentPaths != "0")
+<div class="row-fluid">
+  <div class="accordion span14" id="accordion4">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#data4">
+          <h4>Inconsistent Files Details</h4>
+        </a>
+      </div>
+      <div id="data4" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <table class="table table-hover table-condensed">
+            <thead>
+            <th> <font color="red">On Startup, $!inconsistentPaths inconsistent files were found. This check is only checked once at startup, and you can restart the Alluxio Master for the latest information. <br/> The following files may be corrupted: </font></th>
+            </thead>
+            <tbody>
+            #foreach( $path in $!inconsistentPathItems)
+              <tr>
+                <th><font color="red">$path</font></th>
+              </tr>
+            #end
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+#end
+
+<div class="row-fluid">
+  <div class="accordion span14" id="accordion3">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#data3">
+          <h4>Storage Usage Summary</h4>
+        </a>
+      </div>
+      <div id="data3" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <table class="table table-hover table-condensed">
+            <thead>
+            <th>Storage Alias</th>
+            <th>Space Capacity</th>
+            <th>Space Used</th>
+            <th>Space Usage</th>
+            </thead>
+            <tbody>
+            #foreach( $info in $!storageTierInfos)
+            <tr>
+              <th>$info.getStorageTierAlias()</th>
+              <th>$info.getCapacity()</th>
+              <th>$info.getUsedCapacity()</th>
+              <th>
+                <div class="progress custom-progress">
+                  <div class="bar bar-success" style="width: $info.getFreeSpacePercent()%;">
+                    #if ($info.getFreeSpacePercent() >= $info.getUsedSpacePercent())
+                    $info.getFreeSpacePercent()%Free
+                    #end
+                  </div>
+                  <div class="bar bar-danger" style="width: $info.getUsedSpacePercent()%;">
+                    #if ($info.getFreeSpacePercent() < $info.getUsedSpacePercent())
+                    $info.getUsedSpacePercent()%Used
+                    #end
+                  </div>
+                </div>
+              </th>
+            </tr>
+            #end
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
