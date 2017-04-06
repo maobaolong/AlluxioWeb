@@ -71,7 +71,7 @@ public class WebServer {
 
     mWebAppContext = new WebAppContext();
     mWebAppContext.setContextPath(AlluxioURI.SEPARATOR);
-    mWebAppContext.setDescriptor(WebServer.class.getResource("/WEB-INF/web.xml").toString());
+    mWebAppContext.setDescriptor("./src/main/webapp/WEB-INF/web.xml");
     mWebAppContext.setResourceBase("./src/main/webapp");
     mWebAppContext.setContextPath("/");
     mWebAppContext.setParentLoaderPriority(true);
